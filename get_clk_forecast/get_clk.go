@@ -67,6 +67,7 @@ func main() {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
+
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "fetch: reading %s: %v\n", fullurl, err)
 		os.Exit(1)
@@ -79,26 +80,42 @@ func main() {
 		log.Println(err)
 	}
 
-	fmt.Printf("parsed:=", "%s", parsed.GetRaspBlipspotResults)
-	// fmt.Printf("parsed:=", "%+v", parsed)
+	fmt.Printf("parsed => %+v", parsed.GetRaspBlipspotResults)
 
-	//	fmt.Println("parsed data: " + parsed)
+	//	spew.Dump(parsed.GetRaspBlipspotResults)
+
+	// pseudo
+
+	// type SomeValue struct {
+	// 	Time string
+	// 	Speed string
+	// }
+
+	// _, v := range w.Values {
+
+	// 	if v.One900Lst != nil {
+	// 		t :=
+	// 		s = SomeValue{Time: v.One900Lst, }
+	// 	}
+	// }
+
+	// pseudo end
 
 }
 
 type downloaded_data struct {
-	GetRaspBlipspotResults GetRaspBlipspotResults `json:"get_rasp_blipspot_results"`
+	GetRaspBlipspotResults Header `json:"get_rasp_blipspot_results"`
 	//	MapInfo                string                 `json:"map_info"`
 }
 
 type Values struct {
-	Zero600Lst json.Number `json:"0600lst,omitempty"`
-	FcstPd     json.Number `json:"Fcst Pd"`
-	Zero630Lst json.Number `json:"0630lst,omitempty"`
-	Zero700Lst json.Number `json:"0700lst,omitempty"`
-	Zero730Lst json.Number `json:"0730lst,omitempty"`
-	Zero800Lst json.Number `json:"0800lst,omitempty"`
-	Zero830Lst json.Number `json:"0830lst,omitempty"`
+	// Zero600Lst json.Number `json:"0600lst,omitempty"`
+	FcstPd json.Number `json:"Fcst Pd"`
+	// Zero630Lst json.Number `json:"0630lst,omitempty"`
+	// Zero700Lst json.Number `json:"0700lst,omitempty"`
+	// Zero730Lst json.Number `json:"0730lst,omitempty"`
+	// Zero800Lst json.Number `json:"0800lst,omitempty"`
+	// Zero830Lst json.Number `json:"0830lst,omitempty"`
 	Zero900Lst json.Number `json:"0900lst,omitempty"`
 	Zero930Lst json.Number `json:"0930lst,omitempty"`
 	One000Lst  json.Number `json:"1000lst,omitempty"`
@@ -121,78 +138,81 @@ type Values struct {
 	One830Lst  json.Number `json:"1830lst,omitempty"`
 	One900Lst  json.Number `json:"1900lst,omitempty"`
 }
+
 type W struct {
 	Values []Values `json:"values"`
 }
-type BLTop struct {
-	Values []Values `json:"values"`
-}
-type ThmlHt struct {
-	Values []Values `json:"values"`
-}
-type Hcrit175 struct {
-	Values []Values `json:"values"`
-}
-type SfcSun struct {
-	Values []Values `json:"values"`
-}
-type Temp2M struct {
-	Values []Values `json:"values"`
-}
-type DewPt2M struct {
-	Values []Values `json:"values"`
-}
-type MSLPress struct {
-	Values []Values `json:"values"`
-}
-type SfcWDir struct {
-	Values []Values `json:"values"`
-}
-type SfcWSpd struct {
-	Values []Values `json:"values"`
-}
-type BLWindSpd struct {
-	Values []Values `json:"values"`
-}
-type BlWindDir struct {
-	Values []Values `json:"values"`
-}
-type MaxConverg struct {
-	Values []Values `json:"values"`
-}
-type CUpot struct {
-	Values []Values `json:"values"`
-}
-type OneHrRain struct {
-	Values []Values `json:"values"`
-}
-type Stars struct {
-	Values []Values `json:"values"`
-}
-type Hcrit225 struct {
-	Values []Values `json:"values"`
-}
+
+// type BLTop struct {
+// 	Values []Values `json:"values"`
+// }
+// type ThmlHt struct {
+// 	Values []Values `json:"values"`
+// }
+// type Hcrit175 struct {
+// 	Values []Values `json:"values"`
+// }
+// type SfcSun struct {
+// 	Values []Values `json:"values"`
+// }
+// type Temp2M struct {
+// 	Values []Values `json:"values"`
+// }
+// type DewPt2M struct {
+// 	Values []Values `json:"values"`
+// }
+// type MSLPress struct {
+// 	Values []Values `json:"values"`
+// }
+// type SfcWDir struct {
+// 	Values []Values `json:"values"`
+// }
+// type SfcWSpd struct {
+// 	Values []Values `json:"values"`
+// }
+// type BLWindSpd struct {
+// 	Values []Values `json:"values"`
+// }
+// type BlWindDir struct {
+// 	Values []Values `json:"values"`
+// }
+// type MaxConverg struct {
+// 	Values []Values `json:"values"`
+// }
+// type CUpot struct {
+// 	Values []Values `json:"values"`
+// }
+// type OneHrRain struct {
+// 	Values []Values `json:"values"`
+// }
+// type Stars struct {
+// 	Values []Values `json:"values"`
+// }
+// type Hcrit225 struct {
+// 	Values []Values `json:"values"`
+// }
 
 type Results struct {
-	W          W          `json:"W*"`
-	BLTop      BLTop      `json:"BL Top"`
-	ThmlHt     ThmlHt     `json:"Thml Ht"`
-	Hcrit175   Hcrit175   `json:"Hcrit(175)"`
-	SfcSun     SfcSun     `json:"Sfc. Sun %"`
-	Temp2M     Temp2M     `json:"Temp@2m"`
-	DewPt2M    DewPt2M    `json:"DewPt@2m"`
-	MSLPress   MSLPress   `json:"MSL Press"`
-	SfcWDir    SfcWDir    `json:"Sfc. W.Dir"`
-	SfcWSpd    SfcWSpd    `json:"Sfc. W.Spd"`
-	BLWindSpd  BLWindSpd  `json:"BL Wind Spd"`
-	BlWindDir  BlWindDir  `json:"Bl Wind Dir"`
-	MaxConverg MaxConverg `json:"Max.Converg"`
-	CUpot      CUpot      `json:"CUpot"`
-	OneHrRain  OneHrRain  `json:"1hr Rain"`
-	Stars      Stars      `json:"Stars"`
-	Hcrit225   Hcrit225   `json:"Hcrit(225)"`
+	W W `json:"W*"`
+	// BLTop      BLTop      `json:"BL Top"`
+	// ThmlHt     ThmlHt     `json:"Thml Ht"`
+	// Hcrit175   Hcrit175   `json:"Hcrit(175)"`
+	// SfcSun     SfcSun     `json:"Sfc. Sun %"`
+	// Temp2M     Temp2M     `json:"Temp@2m"`
+	// DewPt2M    DewPt2M    `json:"DewPt@2m"`
+	// MSLPress   MSLPress   `json:"MSL Press"`
+	// SfcWDir    SfcWDir    `json:"Sfc. W.Dir"`
+	// SfcWSpd    SfcWSpd    `json:"Sfc. W.Spd"`
+	// BLWindSpd  BLWindSpd  `json:"BL Wind Spd"`
+	// BlWindDir  BlWindDir  `json:"Bl Wind Dir"`
+	// MaxConverg MaxConverg `json:"Max.Converg"`
+	// CUpot      CUpot      `json:"CUpot"`
+	// OneHrRain  OneHrRain  `json:"1hr Rain"`
+	// Stars      Stars      `json:"Stars"`
+	// Hcrit225   Hcrit225   `json:"Hcrit(225)"`
 }
-type GetRaspBlipspotResults struct {
+
+type Header struct {
 	Mapinfo string  `json:"mapinfo"`
 	Region  string  `json:"region"`
 	Grid    string  `json:"grid"`
